@@ -1,0 +1,50 @@
+﻿@model LawetaWeb.Models.TransportInfo
+
+@{
+    ViewData["Title"] = "Dodaj transport";
+    // Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+<h1>Dodaj transport</h1>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Add</title>
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Add" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
+                    <div class="form-group">        
+                        <label asp-for="ModelName" class="control-label">Model</label>
+                        <input asp-for="ModelName" class="form-control" />
+                        <span asp-validation-for="ModelName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="StartingPlace" class="control-label">Skąd</label>
+                        <input asp-for="StartingPlace" class="form-control" />
+                        <span asp-validation-for="StartingPlace" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Destination" class="control-form">Dokąd</label>
+                        <input asp-for="Destination" class="form-control" />
+                        <span asp-validation-for="Destination" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ImagePath" class="control-label">Zdjęcie</label>
+                        <input type="file" name="ImageFile" class="form-control" />
+                        <span asp-validation-for="ImagePath" class="text-danger"></span>
+                    </div>
+                <div class="form-group mt-2">
+                    <input type="submit" value="Dodaj" class="btn btn-primary" />
+                    <a asp-action="Index" class="btn btn-danger">Anuluj</a>
+                </div>
+            </form>
+        </div>
+
+
+    </div>
+</body>
+</html>

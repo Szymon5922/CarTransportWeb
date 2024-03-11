@@ -1,0 +1,52 @@
+﻿@model LawetaWeb.Models.DataModel
+
+@{
+    // Layout = "_Layout";
+    ViewData["Title"] = "Obrazy";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Images</title>
+    <form asp-action="ChangeImages" enctype="multipart/form-data">
+        <div class="row align-content-center">
+            <div class="col-4 form-group">
+                <label class="control-label">Tło strony głównej</label>
+                <input type="file" name="imageBg" class="form-control" />
+                <span asp-validation-for="ImageBackgroundPath" class="text-danger"></span>
+            </div>
+            <div class="col-6">
+                <img src="@Model.ImageBackgroundPath" class="border border-primary" style="max-block-size:300px;" />
+            </div>
+        </div>
+        <div class="row align-content-center">
+            <div class="form-group col-4">
+                <label class="control-label">Obrazek 1</label>
+                <input type="file" name="image1" class="form-control" />
+                <span asp-validation-for="Image1Path" class="text-danger"></span>
+            </div>
+            <div class="col-6">
+                <img src="@Model.Image1Path" class="border border-primary" style="max-block-size:300px;" />
+            </div>
+        </div>
+        <div class="row align-content-center">
+            <div class="col-4 form-group">
+                <label class="control-label">Obrazek 2</label>
+                <input type="file" name="image2" class="form-control" />
+                <span asp-validation-for="Image2Path" class="text-danger"></span>
+            </div>
+            <div class="col-6">
+                <img src="@Model.Image2Path" class="border border-primary" style="max-block-size:300px;" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Zapisz" class="btn btn-primary" />
+            </div>
+        </div>
+    </form>
+</head>
+<body>
+</body>
+</html>

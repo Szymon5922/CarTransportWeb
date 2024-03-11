@@ -1,0 +1,172 @@
+﻿@model LawetaWeb.Models.DataModel
+
+@{
+    Layout = null;    
+}
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transport lawetą</title>
+    <meta name="description" content="Profesjonalny transport samochodów osobowych oraz materiałów lawetą"/>
+    <meta name="keywords" content="laweta, transport, aut, samochodów, osobowych, transport lawetą, auta z zagranicy, import, przewóz, dostawa aut, dostawa samochodów, materiałów" />
+    <meta name="author" content="Szymon Sokolowski"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="https://kit.fontawesome.com/3140fd4d04.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav>
+        <a href="#contact" rel="nofollow">
+            <div class="fixed-div" href="#contact">
+                Kontakt
+            </div>
+        </a>
+    </nav>
+    <header>
+        <div id="home" style="background-image: linear-gradient(to top, rgba(255, 255, 255,0.3), rgba(0, 0, 0, 0.4)), url(@Model.ImageBackgroundPath);" class="container-fluid">
+
+            <div class="row home-title">
+                <div class="col-md-6 align-self-start p-4">
+                    <div>
+                        <h1>@Model.Title</h1>
+                    </div>
+                </div>
+                <div class="col-md-6 align-self-end p-2">
+                    <h1>@Model.CompanyName</h1>
+                </div>
+            </div>
+            <div class="row bottom-line align-items-center">
+                <div class="col">
+                    Szybko
+                </div>
+                <div class="col">
+                    Bezpiecznie
+                </div>
+                <div class="col">
+                    Profesjonalnie
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section>
+            <div id="about" class="container-fluid">
+                <div class="row p-4">
+                    <div class="col-md-4 tile tile-photo">
+                        <img src="@Model.Image1Path" position:center alt="Nasze lawety">
+                    </div>
+                    <div class="col-md-8 tile tile-center">
+                        @if(Model.Tiles[0].Icon!=null)
+                        {
+                            @Html.Raw(Model.Tiles[0].Icon)
+                        }
+                        <h2>@Model.Tiles[0].Title</h2>
+                        <p>
+                            @Model.Tiles[0].Description
+                        </p>
+
+                    </div>
+                    <div class="col-md-3 tile">
+                        @if (Model.Tiles[1].Icon != null)
+                        {
+                            @Html.Raw(Model.Tiles[1].Icon)                            
+                        }
+                        <h4>@Model.Tiles[1].Title</h4>
+                        <p>
+                            @Model.Tiles[1].Description
+                        </p>
+                    </div>
+                    <div class="col-md-6 tile">
+                        @if (Model.Tiles[2].Icon != null)
+                        {
+                            @Html.Raw(Model.Tiles[2].Icon)                            
+                        }
+                        <h4>@Model.Tiles[2].Title</h4>
+                        <p>
+                            @Model.Tiles[2].Description
+                        </p>
+                    </div>
+                    <div class="col-md-3 tile">
+                        @if (Model.Tiles[3].Icon != null)
+                        {
+                            @Html.Raw(Model.Tiles[3].Icon)
+                        }
+                        <h4>@Model.Tiles[3].Title</h4>
+                        <p>
+                            @Model.Tiles[3].Description
+                        </p>
+                    </div>
+                    <div class="col-md-8 tile tile-center">
+                        @if (Model.Tiles[4].Icon != null)
+                        {
+                            @Html.Raw(Model.Tiles[4].Icon)                            
+                        }
+                        <h3>@Model.Tiles[4].Title</h3>
+                        <p>
+                            @Model.Tiles[4].Description
+                        </p>
+                    </div>
+                    <div class="col-md-4 tile tile-photo">
+                        <img src="@Model.Image2Path" alt="Nasze lawety">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div id="last-transports" class="container-fluid">
+                <h2>Ostatnio przewoziliśmy</h2>
+                <div class="row">
+                    @for(int i = 0; i < Model.Transports.Count && i < 5; i++)
+                    {
+                        <div class="col-6 col-md-3">
+                            <div class="card" style="max-width: 100%;">
+                                <img src="@Model.Transports[i].ImagePath" class="card-img-top" alt="Przetransportowany samochód">
+                                <div class="card-body">
+                                    <p class="card-text">@Model.Transports[i].ModelName</p>
+                                    <p class="card-text">@Model.Transports[i].StartingPlace</p>
+                                    <p class="card-text">@Model.Transports[i].Destination</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </section>
+        <section>
+            <div id="price" class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                        <p>@Model.Price</p>
+                        <p>Skontaktuj się z nami</p>
+                        <i class="fa-solid fa-angles-down"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div id="contact" class="container-fluid">
+                <div class="row">
+                    @foreach(int number in Model.PhoneNumbers.Keys)
+                    {
+                        <div class="col phone">
+                            <p>
+                                <i class="fa-solid fa-user-large"></i>   @Model.PhoneNumbers[number]
+                                <i class="fa-solid fa-phone"></i>   @number
+                            </p>
+                        </div>
+                    }
+                    <div class="col-12 pt-4">
+                        @Model.FooterText
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,39 @@
+﻿@model LawetaWeb.Models.DataModel
+
+@{
+    ViewData["Title"] = "Dodaj numer";
+    // Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>View</title>
+</head>
+<body>
+    
+    <div class="row">
+
+        <div class="col-md-4">
+            <form asp-action="AddNumber">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label for="Number" class="control-label">Numer</label>
+                    <input type="number" name="Number" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="Name" class="control-label">Imie</label>
+                    <input type="text" name="Name" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Zapisz" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</body>
+</html>

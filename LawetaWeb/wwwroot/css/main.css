@@ -1,0 +1,142 @@
+﻿html {
+    font-size: 1.5vw;
+}
+
+body {
+    background: linear-gradient(to bottom, #121212,#2C2C2C,#606823,#121212);
+    color: white;
+    font-family: "Bebas Neue",sans-serif;
+}
+
+.bebas-neue-regular {
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+#home {
+    background-color: rgb(106, 117, 139);
+    height: 100vh;
+    background-position: center;
+    background-size: cover;
+}
+
+.home-title {
+    height: 85vh;
+    padding-top: 20vh;
+    padding-bottom: 20vh;
+    text-align: center;
+}
+
+    .home-title h1 {
+        color: whitesmoke;
+        font-size: 3.5rem;
+    }
+
+.bottom-line {
+    background-color: #2C2C2C;
+    color: #A9B63A;
+    height: 15vh;
+    text-align: center;
+    font-size: 3.75em;
+    -webkit-box-shadow: 0px -10px 10px 20px #2C2C2C;
+    -moz-box-shadow: 0px -10px 10px 20px #2C2C2C;
+    box-shadow: 0px -10px 10px 20px #2C2C2C;
+}
+
+#about {
+    /* height: 100vh; */
+    /* background: linear-gradient(to bottom, #2C2C2C, #121212); */
+    text-align: center;
+}
+
+    #about .tile {
+        border: solid #A9B63A;
+        padding: 1rem;
+        max-height: 50%;
+    }
+
+    #about .tile-center {
+        display: flex;
+        align-items: center;
+        justify-content: center; /* wyśrodkowanie w pionie */
+        flex-direction: column; /* elementy układane w kolumnie */
+    }
+
+    #about .tile-photo {
+        padding: 0;
+    }
+
+.tile-photo img {
+    max-width: 100%;
+}
+
+#last-transports {
+    padding-top: 3rem;
+    /* background: linear-gradient(to bottom, #121212, #606823);     */
+}
+
+    #last-transports h2 {
+        text-align: center;
+        font-size: 2.5rem;
+    }
+
+    #last-transports .card {
+        height: 100%;
+        color: whitesmoke;
+        border: solid #A9B63A;
+        background-color: #121212;
+    }
+
+#price {
+    /* background: linear-gradient(to bottom, #606823, #2C2C2C);     */
+    padding-top: 3rem;
+    text-align: center;
+    font-size: 2rem;
+}
+
+#contact {
+    /* background: linear-gradient(to bottom, #2C2C2C, #121212);     */
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 5rem;
+    padding-inline: 8rem;
+}
+
+    #contact .phone {
+        font-size: 2rem;
+    }
+
+.fixed-div {
+    color: white;
+    position: fixed;
+    top: 1rem; /* odległość od góry */
+    right: 1rem; /* odległość od prawej krawędzi */
+    z-index: 9999; /* aby element był zawsze na wierzchu */
+    padding-block: 0.25rem;
+    padding-inline: 0.75rem;
+    background-color: #2C2C2C75;
+    border-radius: 0.5rem;
+    border: solid #A9B63A;
+    transition: all 0.5s ease-in-out;
+}
+
+    .fixed-div:hover {
+        transform: scale(1.1);
+        background-color: #2C2C2C;
+    }
+
+@media (max-width: 768px) {
+    html {
+        font-size: 1.5vh;
+    }
+
+    #last-transports .card {
+        margin-block-end: 1rem;
+    }
+
+    #contact {
+        padding-bottom: 5rem;
+        padding-inline: 2rem;
+    }
+}

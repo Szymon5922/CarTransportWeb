@@ -1,0 +1,57 @@
+﻿@model LawetaWeb.Models.DataModel
+
+@{
+    ViewData["Title"] = "Transporty";
+    // Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+<p>
+    <a asp-action="Create" class="btn btn-primary">Dodaj</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Model
+            </th>
+            <th>
+                Skąd
+            </th>
+            <th>
+                Dokąd
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var transport in Model.Transports) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => transport.ModelName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => transport.StartingPlace)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => transport.Destination)
+            </td>
+            <td>
+                <img src="@transport.ImagePath" style="max-width:100px;"/>
+            </td>
+            <td>
+                <button type="submit" class="btn btn-danger">@Html.ActionLink("Usuń", "Delete", new { id = Model.Transports.IndexOf(transport) })</button>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+</html>

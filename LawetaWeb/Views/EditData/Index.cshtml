@@ -1,0 +1,120 @@
+﻿@model LawetaWeb.Models.DataModel
+
+@{
+    ViewData["Title"] = "Ogólne";
+}
+
+<head>
+    <script src="https://kit.fontawesome.com/3140fd4d04.js" crossorigin="anonymous"></script>
+</head>
+
+<h1>Informacje ogólne</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Nazwa Firmy
+            </th>
+            <th>
+                Tekst strona główna
+            </th>
+            <th>
+                Teskt - cena
+            </th>
+            <th>
+                Teskt dolny
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td>
+                @Model.CompanyName
+            </td>
+            <td>
+                @Model.Title
+            </td>
+            <td>
+                @Model.Price
+            </td>
+            <td>
+                @Model.FooterText
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+<h2>Kafelki</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th style="width:2%;">
+                Nr
+            </th>
+            <th style="width:3%;">
+                Ikona
+            </th>
+            <th style="width:15%;">
+                Tytuł
+            </th>
+            <th style="width:80%;">
+                Tekst
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    @for(int i = 0; i < Model.Tiles.Length; i++)
+    {
+        <tr>
+            <td>
+                @(i+1)
+            </td>
+            <td>
+                    @Html.Raw(Model.Tiles[i].Icon)
+            </td>
+            <td>
+                @Model.Tiles[i].Title
+            </td>
+            <td>
+                @Model.Tiles[i].Description
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+
+<p>
+    <a asp-action="General" class="btn btn-primary">Edytuj</a>
+</p>
+
+<h2>Numery</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Numer</th>
+            <th>Imie</th>
+        </tr>
+    </thead>
+
+    <tbody>
+            @foreach(int number in Model.PhoneNumbers.Keys)
+            {
+                <tr>
+                    <td>@number</td>
+                    <td>@Model.PhoneNumbers[number]</td>
+                    <td>
+                        <form asp-action="DeleteNumber" asp-route-number="@number" method="post">
+                            <button type="submit" class="btn btn-danger">Usuń numer</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+    </tbody>
+</table>
+<p>
+    <a asp-action="AddNumber" class="btn btn-primary">Dodaj numer</a>
+</p>

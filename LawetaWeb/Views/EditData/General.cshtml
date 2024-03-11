@@ -1,0 +1,89 @@
+﻿@model LawetaWeb.Models.DataModel
+
+@{
+    ViewData["Title"] = "Edytuj ogólne";
+}
+
+
+<h1>Edytuj informacje ogólne</h1>
+<hr />
+<div class="row">
+    <div class="col-10">
+        <form asp-action="EditGeneral">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CompanyName" class="control-label">Nazwa firmy</label>
+                <input asp-for="CompanyName" class="form-control" />
+                <span asp-validation-for="CompanyName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label">Tekst na stronie głównej</label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label">Cennik</label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FooterText" class="control-label">Tekst stopka</label>
+                <input asp-for="FooterText" class="form-control" />
+                <span asp-validation-for="FooterText" class="text-danger"></span>
+            </div>
+            <div class="form-group border m-1 p-1">
+                <label asp-for="Tiles" class="control-label">Kafelek 1</label>
+                <div>
+                    Ikona<input asp-for="Tiles[0].Icon" class="form-control" />
+                    Tytuł<input asp-for="Tiles[0].Title" class="form-control" />
+                    Tekst<input asp-for="Tiles[0].Description" class="form-control" />
+                    <span asp-validation-for="Tiles" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group border m-1 p-1">
+                <label asp-for="Tiles" class="control-label">Kafelek 2</label>
+                <div>
+                    Ikona<input asp-for="Tiles[1].Icon" class="form-control" />
+                    Tytuł<input asp-for="Tiles[1].Title" class="form-control" />
+                    Tekst<input asp-for="Tiles[1].Description" class="form-control" />
+                    <span asp-validation-for="Tiles" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group border m-1 p-1">
+                <label asp-for="Tiles" class="control-label">Kafelek 3</label>
+                <div>
+                    Ikona<input asp-for="Tiles[2].Icon" class="form-control" />
+                    Tytuł<input asp-for="Tiles[2].Title" class="form-control" />
+                    Tekst<input asp-for="Tiles[2].Description" class="form-control" />
+                    <span asp-validation-for="Tiles" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group border m-1 p-1">
+                <label asp-for="Tiles" class="control-label">Kafelek 4</label>
+                <div>
+                    Ikona<input asp-for="Tiles[3].Icon" class="form-control" />
+                    Tytuł<input asp-for="Tiles[3].Title" class="form-control" />
+                    Tekst<input asp-for="Tiles[3].Description" class="form-control" />
+                    <span asp-validation-for="Tiles" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group border m-1 p-1">
+                <label asp-for="Tiles" class="control-label">Kafelek 5</label>
+                <div>
+                    Ikona<input asp-for="Tiles[4].Icon" class="form-control" />
+                    Tytuł<input asp-for="Tiles[4].Title" class="form-control" />
+                    Tekst<input asp-for="Tiles[4].Description" class="form-control" />
+                    <span asp-validation-for="Tiles" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Zapisz" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-danger">Anuluj</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
