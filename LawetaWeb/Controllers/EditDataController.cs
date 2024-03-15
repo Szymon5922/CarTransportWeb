@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using LawetaWeb.Models;
 using Microsoft.AspNetCore.Hosting;
 using System.Security.Cryptography.Xml;
+using System.Reflection;
 
 namespace LawetaWeb.Controllers
 {
@@ -10,6 +11,7 @@ namespace LawetaWeb.Controllers
     {
         private readonly DataModel _dataModel;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private string _uploadsFolder => Path.Combine(_webHostEnvironment.WebRootPath, "data/images");
         public EditDataController(DataModel dataModel, IWebHostEnvironment webHostEnvironment) 
         {
             _dataModel = dataModel;
@@ -122,64 +124,55 @@ namespace LawetaWeb.Controllers
             if (HttpContext.Session.GetString("IsAdmin") != "true")
                 return RedirectToAction("Index", "Login");
 
-            Action<DataModel, string, IFormFile> changeProperty = (dataModel, propertyName, image) =>
-            {
-                string pathForModel = default;
-                if (image != null && image.Length > 0)
-                {                    
-                    string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "data/images");
-                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + image.FileName;
-                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-
-
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
-                    {
-                        image.CopyTo(fileStream);
-                    }
-                    pathForModel = "/data/images/" + uniqueFileName;
-                    string oldPath = default;
-                    switch (propertyName)
-                    {
-                        case nameof(dataModel.ImageBackgroundPath):
-                            if (dataModel.ImageBackgroundPath != null)
-                            {
-                                oldPath =
-                                Path.Combine(_webHostEnvironment.WebRootPath, dataModel.ImageBackgroundPath.TrimStart('/'));
-                            }
-                            dataModel.ImageBackgroundPath = pathForModel;
-                            break;
-                        case nameof(dataModel.Image1Path):
-                            if (dataModel.Image1Path != null)
-                            {
-                                oldPath =
-                                Path.Combine(_webHostEnvironment.WebRootPath, dataModel.Image1Path.TrimStart('/'));
-                            }
-                            dataModel.Image1Path = pathForModel;
-                            break;
-                        case nameof(dataModel.Image2Path):
-                            if (dataModel.Image2Path != null)
-                            {
-                                oldPath =
-                                Path.Combine(_webHostEnvironment.WebRootPath, dataModel.Image2Path.TrimStart('/'));
-                            }
-                            dataModel.Image2Path = pathForModel;
-                            break;
-                        default:
-                            throw new ArgumentException("Unknow property name", nameof(propertyName));
-                    }
-
-                    if(System.IO.File.Exists(oldPath)) 
-                    {
-                        System.IO.File.Delete(oldPath);
-                    }
-                }
-            };
-
-            changeProperty(_dataModel, nameof(_dataModel.ImageBackgroundPath), imageBg);
-            changeProperty(_dataModel, nameof(_dataModel.Image1Path), image1);
-            changeProperty(_dataModel, nameof(_dataModel.Image2Path), image2);
+            ImageChangeProcess(nameof(_dataModel.ImageBackgroundPath), imageBg);
+            ImageChangeProcess(nameof(_dataModel.Image1Path), image1);
+            ImageChangeProcess(nameof(_dataModel.Image2Path), image2);
 
             _dataModel.SaveChanges();
+
+            void ImageChangeProcess(string propName,IFormFile image) 
+            {
+                if (image == null || image.Length == 0)
+                    return;
+
+                Type objType = typeof(DataModel);
+                var propertyToUpdate = objType.GetProperty(propName);
+
+                if (propertyToUpdate == null)
+                    throw new Exception("Unknow property");
+
+                DeleteImage(propertyToUpdate);
+                string newPath = AddImage(image);
+                SetPath(propertyToUpdate, newPath);
+            }
+            string AddImage(IFormFile image) 
+            {
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + image.FileName;
+                string filePath = Path.Combine(_uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    image.CopyTo(fileStream);
+                }
+                
+                string pathForDataModel = "/data/images/" + uniqueFileName;
+                return pathForDataModel;
+            }
+            void DeleteImage(PropertyInfo property)
+            {
+                var propValue = property.GetValue(_dataModel);
+
+                if (propValue == null)
+                    return;
+                
+                string imageToDeletePath = Path.Combine(_webHostEnvironment.WebRootPath, propValue.ToString().TrimStart('/'));
+
+                if (System.IO.File.Exists(imageToDeletePath))
+                    System.IO.File.Delete(imageToDeletePath);
+            }
+            void SetPath(PropertyInfo property, string path)
+            {
+                property.SetValue(_dataModel, path);
+            }
 
             return RedirectToAction("Images");
         }
