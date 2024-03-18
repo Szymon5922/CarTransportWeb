@@ -24,22 +24,6 @@ namespace LawetaWeb.Controllers
 
             return View(_dataModel);
         }        
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            if (HttpContext.Session.GetString("IsAdmin") != "true")
-                return RedirectToAction("Index", "Login");
-
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
         public ActionResult General()
         {
             if (HttpContext.Session.GetString("IsAdmin") != "true")
@@ -63,28 +47,6 @@ namespace LawetaWeb.Controllers
                 return View();
             }
         }
-        public ActionResult Delete(int id)
-        {
-            if (HttpContext.Session.GetString("IsAdmin") != "true")
-                return RedirectToAction("Index", "Login");
-            return View();
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            if (HttpContext.Session.GetString("IsAdmin") != "true")
-                return RedirectToAction("Index", "Login");
-
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }        
         public ActionResult AddNumber() 
         {
             if (HttpContext.Session.GetString("IsAdmin") != "true")
