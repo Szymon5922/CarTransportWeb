@@ -5,6 +5,7 @@ using System.Security.Policy;
 using System.Text.Json.Nodes;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
+
 namespace LawetaWeb.Models
 {
     public class DataModel
@@ -25,22 +26,13 @@ namespace LawetaWeb.Models
         public void Initialize(IWebHostEnvironment webHostEnvironment)
         {
             _webHostEnviroment = webHostEnvironment;
-            _filePath = Path.Combine(_webHostEnviroment.WebRootPath, "data", "webcontent.txt");
-            
-            string jsonData = File.ReadAllText(_filePath);
+            _filePath = Path.Combine(_webHostEnviroment.WebRootPath, "data", "webcontent.json");
 
-            OverrideProperties(JsonConvert.DeserializeObject<DataModel>(jsonData));
-        }
-        public void SaveChanges(DataModel data)
-        {
-            OverrideProperties(data);
-            string json = JsonConvert.SerializeObject(this);
-            File.WriteAllText(_filePath, json);
+            OverrideProperties(JsonFileUtils.Read<DataModel>(_filePath));
         }
         public void SaveChanges() 
         {
-            string json = JsonConvert.SerializeObject(this);
-            File.WriteAllText(_filePath, json);
+            JsonFileUtils.Write(this, _filePath);
         }
         public void OverrideProperties(DataModel data)
         {
