@@ -4,9 +4,11 @@ using LawetaWeb.Models;
 using Microsoft.AspNetCore.Hosting;
 using System.Security.Cryptography.Xml;
 using System.Reflection;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LawetaWeb.Controllers
 {
+    [Authorize]
     public class EditDataController : Controller
     {
         private readonly DataModel _dataModel;
@@ -16,50 +18,29 @@ namespace LawetaWeb.Controllers
         {
             _dataModel = dataModel;
             _webHostEnvironment = webHostEnvironment;
-        }        
+        }
         public ActionResult Index()
         {
-            if (HttpContext.Session.GetString("IsAdmin") != "true")
-                return RedirectToAction("Index","Login");
-
             return View(_dataModel);
         }        
         public ActionResult General()
         {
-            if (HttpContext.Session.GetString("IsAdmin") != "true")
-                return RedirectToAction("Index", "Login");
-
             return View(_dataModel);
         }
         [HttpPost]
         public ActionResult EditGeneral(DataModel dataModel)
         {
-            if (HttpContext.Session.GetString("IsAdmin") != "true")
-                return RedirectToAction("Index", "Login");
-
-            try
-            {
-                _dataModel.SaveChanges(dataModel);
+                _dataModel.SaveChanges();
                 return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
         }
         public ActionResult AddNumber() 
         {
-            if (HttpContext.Session.GetString("IsAdmin") != "true")
-                return RedirectToAction("Index", "Login");
 
             return View();
         }
         [HttpPost]
         public ActionResult AddNumber(int number,string name)
         {
-            if (HttpContext.Session.GetString("IsAdmin") != "true")
-                return RedirectToAction("Index", "Login");
-
             _dataModel.PhoneNumbers.Add(number, name);
             _dataModel.SaveChanges();
             return RedirectToAction(nameof(Index));
@@ -67,25 +48,16 @@ namespace LawetaWeb.Controllers
         [HttpPost]
         public ActionResult DeleteNumber(int number) 
         {
-            if (HttpContext.Session.GetString("IsAdmin") != "true")
-                return RedirectToAction("Index", "Login");
-
             if (_dataModel.PhoneNumbers.ContainsKey(number))
                 _dataModel.PhoneNumbers.Remove(number);
             return RedirectToAction(nameof(Index));
         }
         public ActionResult Images()
         {
-            if (HttpContext.Session.GetString("IsAdmin") != "true")
-                return RedirectToAction("Index", "Login");
-
             return View(_dataModel);
         }
         public ActionResult ChangeImages(IFormFile imageBg, IFormFile image1, IFormFile image2)
         {
-            if (HttpContext.Session.GetString("IsAdmin") != "true")
-                return RedirectToAction("Index", "Login");
-
             ImageChangeProcess(nameof(_dataModel.ImageBackgroundPath), imageBg);
             ImageChangeProcess(nameof(_dataModel.Image1Path), image1);
             ImageChangeProcess(nameof(_dataModel.Image2Path), image2);
