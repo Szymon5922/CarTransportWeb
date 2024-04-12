@@ -1,4 +1,5 @@
 using LawetaWeb.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,12 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<DataModel>();
 
 builder.Services.AddSession();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).
+    AddCookie(options=>
+    {
+        options.LoginPath = "/Login";
+    });
 
 var app = builder.Build();
 
@@ -34,6 +41,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseSession();
+app.UseAuthentication();
 
 app.UseRouting();
 
